@@ -1,0 +1,21 @@
+# Console redesign and real backend integration
+
+Implemented 4 October 2026. This report supersedes the initial demo implementation. The architecture document remains a forward product plan.
+
+Replaced the green marketing UI with a neutral dense console, graphite collapsible sidebar, blue accent, small headings, 4px corners, data tables and split panes. Command Center shows ranked real work, pending decisions, service observations and chronological activity. Tickets use paginated database search/filter/sort, browser saved views, density controls and keyboard row navigation. The cockpit separates customer/service facts, source/timeline and extracted suggestions. Customers show contacts/current work/history with database counts. Automations show nine logical services with worker/outbox diagnostics behind disclosure. Mobile tickets become focused work rows rather than a shrunken grid; the mobile cockpit puts source and timeline first.
+
+Deleted runtime demo data. New BFF read endpoints cover tickets/detail, clients/detail, interactions, activity, automation health and bounded snapshot. Assets return explicit unsupported 501. Source/failure/loading/empty states are real; no fixture fallback or fake mutation exists.
+
+The existing PostgreSQL container has no published port. Local integration uses fixed Docker/psql over its trusted socket, session authorized as ticket_owner, with read-only repeatable-read transactions and bounded timeouts. It requires privileged Docker access and is not a dedicated least-privilege reader. This transport is loopback desktop only; network deployment requires authenticated pg transport and an independently provisioned reader. No credential files were read, ports exposed, grants/roles/schema changed or production writes performed. n8n workflows were untouched.
+
+Initial integration reads returned two persisted tickets/clients, three open interactions, 42 timestamp events and nine service projections. Existing pipeline activity subsequently created a third ticket/client; polling picked it up. Counts describe observations at those times, not demo totals. Verified real TI-2 source and nine related timeline events, real contacts, literal ID filtering, lists/details, navigation, responsive rendering and unsupported assets. Timeline records retain timestamp provenance; health reports observations and attention rather than certified uptime.
+
+Checks passed: repository npm run check (TypeScript, 78 mock/loopback tests, build); frontend npm run check (TypeScript, 11 isolated tests, production build, failure/auth/filter/unsupported/write smoke checks). Automated tests did not contact production. The separate production-read review was explicitly authorized by the user.
+
+Preview runs as a production build at http://127.0.0.1:3100. Run/setup/API details are in ../../frontend/README.md. Current screenshots are screenshots/ticket-live.png and screenshots/console-live.png; older screenshots show the superseded design. These review files contain real record data and should remain private to this workspace.
+
+Limits: assets, SLA, technician assignment, notes, parts, quotes, audited repair/resolution events and mutation commands are absent from the deployed model and explicitly unavailable. No execute/retry/send/activation action exists. Identity/membership/audited writes are prerequisites for multi-user operation. Command search and action previews are bounded to the snapshot; list search and counts query the full database. Snapshot truncation and detail history bounds are visible.
+
+## Reference-led refinement
+
+The subsequent user-directed interface study is in interface-study.md. It examines actual vendor screenshots from Freshservice and Zendesk, plus Jira queue and GLPI ticket documentation. The current implementation replaces the previous card-based overview with queue navigation and subject-led tables, configurable columns, named saved views, readable typography, and continuous ticket panes with Record/Activity/Original transcript tabs. Current screenshots are reference-led-queue.png, reference-led-ticket.png and reference-led-mobile.png. Browser checks confirmed columns, named view add/remove, literal ID filtering, keyboard row navigation, ticket tabs and mobile layout. Both root and frontend check suites passed after these refinements. Backend integration is unchanged.

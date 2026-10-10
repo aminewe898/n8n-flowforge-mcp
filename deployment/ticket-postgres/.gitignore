@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+secrets/*
+!secrets/.gitkeep
+backups/*
+!backups/.gitkeep
+*.dump
+*.backup
+
+# This workspace-specific sample is listed in release/do-not-commit.txt.
+.env.example

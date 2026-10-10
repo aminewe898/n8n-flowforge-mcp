@@ -1,0 +1,58 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+coverage/
+*.log
+frontend/.next/
+frontend/tsconfig.tsbuildinfo
+.next/
+build/
+*.tsbuildinfo
+*.dump
+*.backup
+*.sql.gz
+*.ogg
+*.opus
+*.wav
+*.mp3
+backups/
+secrets/
+runtime/
+n8n-data/
+pgdata/
+credentials*.json
+*credentials-export*
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+__pycache__/
+*.pyc
+.codex/
+.agents/
+release/audit-local/
+# Production evidence stays private; public distribution is release/relay only.
+planning/
+docs/service-desk/screenshots/
+deployment/ticket-postgres/tests/*result.json
+deployment/ticket-postgres/tests/*application.json
+
+# Relay is a separately versioned/published project; local release tooling and
+# archives may include production evidence or embedded Git repositories.
+release/
+
+# Local production operations and configuration samples listed in
+# release/do-not-commit.txt stay in this workspace.
+frontend/.env.example
+deployment/ticket-postgres/.env.example
+deployment/ticket-postgres/tests/apply-phase2a-production.mjs
+deployment/ticket-postgres/tests/apply-v1-completion.mjs
+deployment/ticket-postgres/tests/controlled-deployment.mjs
+deployment/ticket-postgres/tests/backup-restore-proof.mjs
+*.zip
+*.pem
+*.key
